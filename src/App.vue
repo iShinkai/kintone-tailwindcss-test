@@ -17,7 +17,7 @@
  * インポート
  * - - - - - - - - - - - - - - - - - - - -
  */
-import { computed, PropType } from 'vue'
+import { computed, PropType, toRef } from 'vue'
 import { KintoneFormFieldProperty } from '@kintone/rest-api-client'
 
 /**
@@ -55,7 +55,9 @@ const props = defineProps({
 
 /** 対応状況の配列 */
 const ListLabels = computed(() => {
-  const statusOptions = props.fieldInfo.Status.options
+  const statusOptions = (
+    fieldInfo.value['Status'] as KintoneFormFieldProperty.Dropdown
+  ).options
   const keys = Object.keys(statusOptions)
   console.log(keys)
   const options = keys.map((key) => statusOptions[key])
@@ -90,6 +92,15 @@ const LIST_HEADER_COLORS = [
   '#047857' /** emerald-700 */,
   '#0369a1' /** sky-700 */,
 ]
+
+/**
+ * - - - - - - - - - - - - - - - - - - - -
+ * リアクティブなデータ
+ * - - - - - - - - - - - - - - - - - - - -
+ */
+
+/** フィールド情報 */
+const fieldInfo = toRef(props, 'fieldInfo')
 </script>
 
 <!--
@@ -113,4 +124,6 @@ const LIST_HEADER_COLORS = [
   スタイル
 ============================================================
 -->
-<style scoped></style>
+<style scoped>
+@import url('@/style.css');
+</style>
