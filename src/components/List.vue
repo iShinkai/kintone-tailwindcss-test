@@ -88,4 +88,6 @@ const listRecords = ref(props.records)
   スタイル
 ============================================================
 -->
-<style scoped></style>
+<style scoped>
+@import url('@/style.css');
+</style>
